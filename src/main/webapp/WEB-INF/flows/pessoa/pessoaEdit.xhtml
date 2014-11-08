@@ -1,25 +1,28 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:cld="http://produtec.com.br/cloud"
-                template="/WEB-INF/template/layout.xhtml">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <ui:define name="breadcrumb">
-        <cld:breadCrumbRegistro menu="#{breadCrumb.menu}" inicio="#{breadCrumb.inicio}" atual="Cliente" />
-    </ui:define>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="filter">
-        <cld:form focus="cnpj">
-            <cld:inputText id="cnpj" label="CPF / CNPJ" value="#{pessoa.cpfCnpj}"  />
-            <cld:inputText id="razaoSocial" label="Razão Social" value="#{pessoa.nomeRazaoSocial}" />
-            <cld:inputText id="ie" label="Inscrição Estadual" value="#{pessoa.inscricaoEstadual}" />
-            <cld:inputText id="telefone" label="Telefone" value="#{pessoa.telefone}" />
-            <cld:inputText id="email" label="E-mail" value="#{pessoa.email}" />
-        </cld:form>
-    </ui:define>
+<h:head>
+    <title>Cadastro de Pessoas</title>
+</h:head>
 
-    <ui:define name="footer">
-        <cld:footer cancelar="true" proximo="true" />
-    </ui:define>
+<h:body>
+    <h:form>
+        <p:panel header="Cadastro de Pessoa">
+            <h:panelGrid columns="3">
+                <p:outputLabel for="nome" value="Nome:"/>
+                <p:inputText id="nome" value="#{pessoa.nome}"/>
+                <p:message for="nome"/>
+            </h:panelGrid>
+            <p:commandButton value="Salvar" action="salvar"/>
+            <p:commandButton value="Cancelar" action="cancelar"/>
+        </p:panel>
+    </h:form>
+</h:body>
 
-</ui:composition>
-
+</html>

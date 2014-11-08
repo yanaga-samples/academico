@@ -14,6 +14,13 @@ public class Pessoa implements Serializable {
 
 	private Nome nome;
 
+	protected Pessoa() {
+	}
+
+	public static Pessoa of() {
+		return new Pessoa();
+	}
+
 	public Long getId() {
 		return id;
 	}

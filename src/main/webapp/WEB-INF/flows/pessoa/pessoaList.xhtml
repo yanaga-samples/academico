@@ -1,38 +1,31 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:cld="http://produtec.com.br/cloud"
-                xmlns:sec="http://www.springframework.org/security/tags"
-                template="/WEB-INF/template/layout.xhtml">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <ui:define name="breadcrumb">
-        <p:panel>
-            <sec:authorize access="hasRole('ROLE_ADMIN')" var="admin"/>
-        </p:panel>
-        <cld:breadCrumbConsulta menu="cliente" atual="Clientes"/>
-    </ui:define>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="filter">
-        <cld:filter focus="nome" inativos="false">
-            <cld:inputTextFilter id="nome" value="#{filtro.nome}" label="Nome"/>
-        </cld:filter>
-    </ui:define>
+<h:head>
+    <title>Cadastro de Pessoas</title>
+</h:head>
 
-    <ui:define name="content">
-        <cld:content>
-            <p:dataTable id="conteudo" var="c" value="#{clientes}"
-                         emptyMessage="Nenhum registro encontrado">
-                <cld:columnEdit />
-                <p:column headerText="Razão Social">
-                    <h:outputText value="#{c.pessoa.nomeRazaoSocial}" />
+<h:body>
+    <h:form>
+        <p:panel header="Lista de Pessoas">
+            <p:dataTable value="#{pessoas}" var="p">
+                <p:column headerText="Nome">
+                    <h:outputText value="#{p.nome}"/>
                 </p:column>
-                <p:column headerText="CNPJ">
-                    <h:outputText value="#{c.pessoa.cpfCnpj}" />
+                <p:column>
+                    <p:commandButton id="editar" icon="ui-icon-pencil" action="editar"/>
+                    <p:commandButton id="excluir" icon="ui-icon-trash" action="excluir"/>
                 </p:column>
             </p:dataTable>
-        </cld:content>
-    </ui:define>
+            <p:commandButton value="Novo" action="novo"/>
+        </p:panel>
+    </h:form>
+</h:body>
 
-</ui:composition>
-
+</html>

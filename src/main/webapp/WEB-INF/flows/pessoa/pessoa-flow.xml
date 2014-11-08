@@ -1,63 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-      parent="main">
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <persistence-context/>
 
-    <on-start>
-        <evaluate expression="clienteController.newFiltro()"
-                  result="flowScope.filtro"/>
-    </on-start>
-
     <view-state id="pessoaList">
-        <on-entry>
-            <evaluate expression="clienteController.find(filtro)"
-                      result="flowScope.clientes" result-type="dataModel"/>
-            <evaluate expression="clienteController.breadCrumb()"
-                      result="flowScope.breadCrumb" />
-        </on-entry>
-
-        <transition on="consultar">
-            <evaluate expression="clienteController.find(filtro)"
-                      result="flowScope.clientes" result-type="dataModel"/>
-        </transition>
-
-        <transition on="novo" to="cliente">
-            <evaluate expression="clienteController.newCliente()" result="flowScope.cliente"/>
-            <set name="flowScope.pessoa" value="cliente.pessoa"/>
-        </transition>
-
-        <transition on="editar" to="cliente">
-            <set name="flowScope.cliente" value="clientes.selectedRow"/>
-            <set name="flowScope.pessoa" value="cliente.pessoa"/>
+        <on-render>
+            <evaluate expression="pessoaController.filtrar()"
+                result="viewScope.pessoas" result-type="dataModel"/>
+        </on-render>
+        <transition on="novo" to="pessoaEdit">
+            <evaluate expression="pessoaController.novo()"
+                result="flowScope.pessoa"/>
         </transition>
     </view-state>
 
-    <view-state id="pessoaEdit" model="cliente">
-        <on-entry>
-            <evaluate expression="clienteController.getEndereco(pessoa)"
-                      result="flowScope.endereco"/>
-        </on-entry>
-        <transition on="inicio" to="clienteList" validate="false" />
-        <transition on="proximo" to="endereco" validate="false" />
+    <view-state id="pessoaEdit">
+        <transition on="salvar" to="ok">
+            <evaluate expression="pessoaController.salvar(pessoa)"/>
+        </transition>
+        <transition on="cancelar" to="cancelar"/>
     </view-state>
 
-    <subflow-state id="endereco" subflow="endereco">
-        <input name="endereco" value="endereco" />
-        <input name="cidade" value="endereco.cidade" />
-        <input name="breadCrumb" value="breadCrumb" />
-
-        <transition on="anterior" to="cliente" />
-        <transition on="inicio" to="clienteList" />
-        <transition on="salvar" to="ok" />
-    </subflow-state>
-
-    <end-state id="ok">
-        <on-entry>
-            <evaluate expression="clienteController.save(pessoa, cliente)"/>
-        </on-entry>
+    <end-state id="ok" commit="true">
     </end-state>
+
+    <end-state id="cancelar"/>
 
 </flow>
