@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:cld="http://produtec.com.br/cloud"
+                template="/WEB-INF/template/layout.xhtml">
+
+    <ui:define name="breadcrumb">
+        <cld:breadCrumbRegistro menu="#{breadCrumb.menu}" inicio="#{breadCrumb.inicio}" atual="Cliente" />
+    </ui:define>
+
+    <ui:define name="filter">
+        <cld:form focus="cnpj">
+            <cld:inputText id="cnpj" label="CPF / CNPJ" value="#{pessoa.cpfCnpj}"  />
+            <cld:inputText id="razaoSocial" label="Razão Social" value="#{pessoa.nomeRazaoSocial}" />
+            <cld:inputText id="ie" label="Inscrição Estadual" value="#{pessoa.inscricaoEstadual}" />
+            <cld:inputText id="telefone" label="Telefone" value="#{pessoa.telefone}" />
+            <cld:inputText id="email" label="E-mail" value="#{pessoa.email}" />
+        </cld:form>
+    </ui:define>
+
+    <ui:define name="footer">
+        <cld:footer cancelar="true" proximo="true" />
+    </ui:define>
+
+</ui:composition>
+

@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:cld="http://produtec.com.br/cloud"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="/WEB-INF/template/layout.xhtml">
+
+    <ui:define name="breadcrumb">
+        <p:panel>
+            <sec:authorize access="hasRole('ROLE_ADMIN')" var="admin"/>
+        </p:panel>
+        <cld:breadCrumbConsulta menu="cliente" atual="Clientes"/>
+    </ui:define>
+
+    <ui:define name="filter">
+        <cld:filter focus="nome" inativos="false">
+            <cld:inputTextFilter id="nome" value="#{filtro.nome}" label="Nome"/>
+        </cld:filter>
+    </ui:define>
+
+    <ui:define name="content">
+        <cld:content>
+            <p:dataTable id="conteudo" var="c" value="#{clientes}"
+                         emptyMessage="Nenhum registro encontrado">
+                <cld:columnEdit />
+                <p:column headerText="Razão Social">
+                    <h:outputText value="#{c.pessoa.nomeRazaoSocial}" />
+                </p:column>
+                <p:column headerText="CNPJ">
+                    <h:outputText value="#{c.pessoa.cpfCnpj}" />
+                </p:column>
+            </p:dataTable>
+        </cld:content>
+    </ui:define>
+
+</ui:composition>
+

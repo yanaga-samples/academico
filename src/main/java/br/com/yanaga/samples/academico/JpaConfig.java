@@ -29,8 +29,8 @@ public class JpaConfig {
 		String[] userInfo = databaseUri.getUserInfo().split(":");
 
 		DataSource dataSource = new DataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl(String.format("jdbc:mysql://%s%s", databaseUri.getHost(), databaseUri.getPath()));
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setUrl(String.format("jdbc:postgresql://%s%s", databaseUri.getHost(), databaseUri.getPath()));
 		dataSource.setUsername(userInfo[0]);
 		dataSource.setPassword(userInfo[1]);
 		dataSource.setMinIdle(10);
