@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.time.MonthDay;
 import java.time.OffsetDateTime;
 import java.time.Year;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
 
@@ -26,7 +25,7 @@ public class Ano implements Serializable, Comparable<Ano> {
 	public static Ano of(Date value) {
 		checkNotNull(value);
 		OffsetDateTime offsetDateTime =
-				OffsetDateTime.ofInstant(value.toInstant(), ZoneId.systemDefault());
+				OffsetDateTime.ofInstant(value.toInstant(), ZoneOffset.UTC);
 		return new Ano(Year.from(offsetDateTime));
 	}
 

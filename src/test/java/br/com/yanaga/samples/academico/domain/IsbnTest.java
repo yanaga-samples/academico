@@ -14,4 +14,8 @@ public class IsbnTest {
 				String.format("%s", Identificacao.of("987654321X")));
 	}
 
+	@Test
+	public void testEquals() {
+		assertEquals(Identificacao.of("1234567890"), Identificacao.of("1234567890"));
+	}
 }

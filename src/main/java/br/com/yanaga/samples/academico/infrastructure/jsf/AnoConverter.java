@@ -18,7 +18,7 @@ public class AnoConverter implements Converter {
 				return Ano.of(value);
 			}
 			catch (Exception e) {
-				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+				throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ano inválido.", null));
 			}
 		}
 		return null;

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Cadastro de Disciplinas</title>
+</h:head>
+
+<h:body>
+    <h:form id="form">
+        <p:panel header="Referências Obrigatórias">
+            <p:dataTable value="#{referencias}" var="ref"
+                         emptyMessage="Nenhuma referência cadastrada.">
+                <p:column headerText="Identificação">
+                    <h:outputText value="#{ref.identificacao}">
+                        <f:attribute name="formatado" value="true"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Ano">
+                    <h:outputText value="#{ref.ano}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton icon="ui-icon-pencil" action="editarReferencia"
+                                     update=":dialogForm" oncomplete="PF('referenciaDialog').show()"/>
+                </p:column>
+            </p:dataTable>
+            <p:commandButton value="Nova Referência" action="novaReferencia"
+                             update=":dialogForm" oncomplete="PF('referenciaDialog').show()"/>
+            <p:commandButton value="Salvar" action="salvar" update="@form"/>
+            <p:commandButton value="Cancelar" action="cancelar" immediate="true"/>
+        </p:panel>
+    </h:form>
+
+    <p:dialog id="referenciaDialog" widgetVar="referenciaDialog" modal="true">
+        <h:form id="dialogForm">
+            <p:panel header="Cadastro de Referência">
+                <h:panelGrid columns="3">
+                    <p:outputLabel for="identificacao" value="Identificação"/>
+                    <p:inputText id="identificacao" value="#{referencia.identificacao}"/>
+                    <p:message for="identificacao"/>
+                    <p:outputLabel for="ano" value="Ano"/>
+                    <p:inputText id="ano" value="#{referencia.ano}"/>
+                    <p:message for="ano"/>
+                </h:panelGrid>
+                <p:commandButton value="OK" action="adicionarReferencia" update=":dialogForm, :form"
+                                 oncomplete="if (!args.validationFailed) PF('referenciaDialog').hide();"/>
+                <p:commandButton value="Cancelar" immediate="true"
+                                 onclick="PF('referenciaDialog').hide();"/>
+            </p:panel>
+        </h:form>
+    </p:dialog>
+</h:body>
+
+</html>

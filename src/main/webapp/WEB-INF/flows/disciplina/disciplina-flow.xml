@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <persistence-context />
+
+    <view-state id="disciplinaList">
+        <on-render>
+            <evaluate expression="disciplinaController.filtrar()" result="viewScope.disciplinas"
+                result-type="dataModel" />
+        </on-render>
+        <transition on="novo" to="disciplinaEdit">
+            <evaluate expression="disciplinaController.novo()" result="flowScope.disciplina" />
+        </transition>
+        <transition on="editar" to="disciplinaEdit">
+            <set name="flowScope.disciplina" value="disciplinas.selectedRow" />
+        </transition>
+        <transition on="excluir" to="ok">
+            <evaluate expression="disciplinaController.remover(disciplinas.selectedRow)" />
+        </transition>
+    </view-state>
+
+    <view-state id="disciplinaEdit">
+        <transition on="proximo" to="referenciasObrigatorias" />
+    </view-state>
+
+    <view-state id="referenciasObrigatorias" view="referencias.xhtml">
+        <on-render>
+            <evaluate expression="disciplina.referenciasObrigatorias" result="viewScope.referencias"
+                result-type="dataModel" />
+        </on-render>
+        <transition on="novaReferencia">
+            <evaluate expression="disciplinaController.novaReferencia()" result="viewScope.referencia" />
+        </transition>
+        <transition on="editarReferencia">
+            <evaluate expression="disciplinaController.editarReferencia(referencias.selectedRow)"
+                result="viewScope.referencia" />
+        </transition>
+        <transition on="adicionarReferencia">
+            <evaluate expression="disciplina.addReferenciaObrigatoria(referencia.build())" />
+        </transition>
+        <transition on="salvar" to="referenciasComplementares"/>
+    </view-state>
+
+    <view-state id="referenciasComplementares" view="referencias.xhtml">
+        <on-render>
+            <evaluate expression="disciplina.referenciasComplementares" result="viewScope.referencias"
+                result-type="dataModel" />
+        </on-render>
+        <transition on="novaReferencia">
+            <evaluate expression="disciplinaController.novaReferencia()" result="viewScope.referencia" />
+        </transition>
+        <transition on="editarReferencia">
+            <evaluate expression="disciplinaController.editarReferencia(referencias.selectedRow)"
+                result="viewScope.referencia" />
+        </transition>
+        <transition on="adicionarReferencia">
+            <evaluate expression="disciplina.addReferenciaComplementar(referencia.build())" />
+        </transition>
+        <transition on="salvar" to="ok">
+            <evaluate expression="disciplinaController.salvar(disciplina)" />
+        </transition>
+    </view-state>
+
+    <end-state id="ok" commit="true"></end-state>
+
+    <end-state id="cancelar" />
+
+    <global-transitions>
+        <transition on="cancelar" to="cancelar" />
+    </global-transitions>
+</flow>
