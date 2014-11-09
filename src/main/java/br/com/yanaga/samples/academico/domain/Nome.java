@@ -20,7 +20,7 @@ public class Nome implements Serializable, Comparable<Nome> {
 	public static Nome of(String value) {
 		checkNotNull(value);
 		checkArgument(!Strings.isNullOrEmpty(value));
-		return new Nome(value);
+		return new Nome(value.toUpperCase());
 	}
 
 	@Override

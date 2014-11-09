@@ -19,8 +19,8 @@
                 <p:inputText id="nome" value="#{pessoa.nome}"/>
                 <p:message for="nome"/>
             </h:panelGrid>
-            <p:commandButton value="Salvar" action="salvar"/>
-            <p:commandButton value="Cancelar" action="cancelar"/>
+            <p:commandButton value="Salvar" action="salvar" update="@form"/>
+            <p:commandButton value="Cancelar" action="cancelar" immediate="true"/>
         </p:panel>
     </h:form>
 </h:body>

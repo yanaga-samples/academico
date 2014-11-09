@@ -14,6 +14,12 @@
             <evaluate expression="pessoaController.novo()"
                 result="flowScope.pessoa"/>
         </transition>
+        <transition on="editar" to="pessoaEdit">
+            <set name="flowScope.pessoa" value="pessoas.selectedRow"/>
+        </transition>
+        <transition on="excluir" to="ok">
+            <evaluate expression="pessoaController.remover(pessoas.selectedRow)"/>
+        </transition>
     </view-state>
 
     <view-state id="pessoaEdit">
