@@ -10,6 +10,6 @@ public class ReferenciaBibliografica implements Serializable {
 //
 //	private final Autor autor;
 //
-//	private final Ano ano;
+	private Ano ano;
 
 }
