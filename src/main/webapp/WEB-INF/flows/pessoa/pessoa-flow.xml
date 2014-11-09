@@ -6,8 +6,11 @@
     <persistence-context/>
 
     <view-state id="pessoaList">
+        <on-entry>
+            <evaluate expression="pessoaController.filtro()" result="viewScope.filtro"/>
+        </on-entry>
         <on-render>
-            <evaluate expression="pessoaController.filtrar()"
+            <evaluate expression="pessoaController.filtrar(filtro)"
                 result="viewScope.pessoas" result-type="dataModel"/>
         </on-render>
         <transition on="novo" to="pessoaEdit">
@@ -26,12 +29,14 @@
         <transition on="salvar" to="ok">
             <evaluate expression="pessoaController.salvar(pessoa)"/>
         </transition>
-        <transition on="cancelar" to="cancelar"/>
     </view-state>
 
-    <end-state id="ok" commit="true">
-    </end-state>
+    <end-state id="ok" commit="true"></end-state>
 
     <end-state id="cancelar"/>
+
+    <global-transitions>
+        <transition on="cancelar" to="cancelar" />
+    </global-transitions>
 
 </flow>

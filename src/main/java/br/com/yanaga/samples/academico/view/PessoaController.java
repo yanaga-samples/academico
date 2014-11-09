@@ -1,5 +1,6 @@
 package br.com.yanaga.samples.academico.view;
 
+import br.com.yanaga.samples.academico.domain.FiltroPessoa;
 import br.com.yanaga.samples.academico.domain.Pessoa;
 import br.com.yanaga.samples.academico.domain.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,14 @@ public class PessoaController {
 		return pessoaRepository.findAll();
 	}
 
+	public FiltroPessoa filtro() {
+		return FiltroPessoa.of();
+	}
+
+	public List<Pessoa> filtrar(FiltroPessoa filtro) {
+		return pessoaRepository.findAll(filtro);
+	}
+
 	public void salvar(Pessoa pessoa) {
 		pessoaRepository.save(pessoa);
 	}
@@ -28,5 +37,6 @@ public class PessoaController {
 	public void remover(Pessoa pessoa) {
 		pessoaRepository.delete(pessoa);
 	}
+
 
 }
