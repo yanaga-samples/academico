@@ -3,6 +3,7 @@ package br.com.yanaga.samples.academico.view;
 import br.com.yanaga.samples.academico.domain.FiltroPessoa;
 import br.com.yanaga.samples.academico.domain.Pessoa;
 import br.com.yanaga.samples.academico.domain.PessoaRepository;
+import br.com.yanaga.samples.academico.domain.Pessoas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -19,6 +20,7 @@ public class PessoaController {
 	}
 
 	public List<Pessoa> filtrar() {
+		pessoaRepository.findAll(Pessoas.comNomeContendo("a").and(Pessoas.comId(123L)));
 		return pessoaRepository.findAll();
 	}
 
