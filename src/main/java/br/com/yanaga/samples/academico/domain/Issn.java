@@ -2,6 +2,8 @@ package br.com.yanaga.samples.academico.domain;
 
 import com.google.common.base.Objects;
 
+import java.util.Formatter;
+
 class Issn extends Identificacao {
 
 	Issn(String value) {
@@ -27,4 +29,10 @@ class Issn extends Identificacao {
 		return this.value;
 	}
 
+	@Override
+	public void formatTo(Formatter formatter, int flags, int width, int precision) {
+		formatter.format("ISSN %s-%s",
+				value.substring(0, 4),
+				value.substring(4));
+	}
 }

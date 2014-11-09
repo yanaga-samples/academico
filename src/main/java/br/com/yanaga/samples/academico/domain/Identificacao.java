@@ -3,11 +3,12 @@ package br.com.yanaga.samples.academico.domain;
 import com.google.common.base.Strings;
 
 import java.io.Serializable;
+import java.util.Formattable;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public abstract class Identificacao implements Serializable {
+public abstract class Identificacao implements Serializable, Formattable {
 
 	final String value;
 
