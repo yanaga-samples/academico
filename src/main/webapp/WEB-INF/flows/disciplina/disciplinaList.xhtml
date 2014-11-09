@@ -14,6 +14,17 @@
 <h:body>
     <h:form>
         <p:panel header="Lista de Disciplinas">
+            <p:fieldset legend="Filtro">
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="nome" value="Nome:"/>
+                    <p:inputText id="nome" value="#{filtro.nome}"/>
+                    <p:outputLabel for="referenciasObrigatorias" value="Qtde Ref. Obrigatórias:"/>
+                    <p:inputText id="referenciasObrigatorias" value="#{filtro.referenciasObrigatorias}"/>
+                    <p:outputLabel for="referenciasComplementares" value="Qtde Ref. Complementares:"/>
+                    <p:inputText id="referenciasComplementares" value="#{filtro.referenciasComplementares}"/>
+                </h:panelGrid>
+                <p:commandButton value="Filtrar" update="@form"/>
+            </p:fieldset>
             <p:dataTable value="#{disciplinas}" var="p">
                 <p:column headerText="Nome">
                     <h:outputText value="#{p.nome}"/>

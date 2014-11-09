@@ -5,8 +5,11 @@
     <persistence-context />
 
     <view-state id="disciplinaList">
+        <on-entry>
+            <evaluate expression="disciplinaController.filtro()" result="viewScope.filtro"/>
+        </on-entry>
         <on-render>
-            <evaluate expression="disciplinaController.filtrar()" result="viewScope.disciplinas"
+            <evaluate expression="disciplinaController.filtrar(filtro)" result="viewScope.disciplinas"
                 result-type="dataModel" />
         </on-render>
         <transition on="novo" to="disciplinaEdit">

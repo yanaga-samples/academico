@@ -2,6 +2,7 @@ package br.com.yanaga.samples.academico.view;
 
 import br.com.yanaga.samples.academico.domain.Disciplina;
 import br.com.yanaga.samples.academico.domain.DisciplinaRepository;
+import br.com.yanaga.samples.academico.domain.FiltroDisciplina;
 import br.com.yanaga.samples.academico.domain.ReferenciaBibliografica;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,10 @@ public class DisciplinaController {
 		return Disciplina.of();
 	}
 
+	public FiltroDisciplina filtro() {
+		return FiltroDisciplina.of();
+	}
+
 	public ReferenciaBibliografica.Builder novaReferencia() {
 		return ReferenciaBibliografica.builder();
 	}
@@ -26,8 +31,8 @@ public class DisciplinaController {
 		return ReferenciaBibliografica.builder(referenciaBibliografica);
 	}
 
-	public List<Disciplina> filtrar() {
-		return disciplinaRepository.findAll();
+	public List<Disciplina> filtrar(FiltroDisciplina filtro) {
+		return disciplinaRepository.findAll(filtro);
 	}
 
 	public void salvar(Disciplina disciplina) {
