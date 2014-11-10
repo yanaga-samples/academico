@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <persistence-context />
+
+    <view-state id="cursoList">
+        <on-entry>
+            <evaluate expression="cursoController.filtro()" result="viewScope.filtro" />
+        </on-entry>
+        <on-render>
+            <evaluate expression="cursoController.filtrar(filtro)" result="viewScope.cursos" result-type="dataModel" />
+        </on-render>
+        <transition on="novo" to="cursoEdit">
+            <evaluate expression="cursoController.novo()" result="flowScope.curso" />
+        </transition>
+        <transition on="editar" to="cursoEdit">
+            <set name="flowScope.curso" value="cursos.selectedRow" />
+        </transition>
+        <transition on="excluir" to="ok">
+            <evaluate expression="cursoController.remover(cursos.selectedRow)" />
+        </transition>
+    </view-state>
+
+    <view-state id="cursoEdit">
+        <transition on="proximo" to="disciplinas" />
+    </view-state>
+
+    <view-state id="disciplinas">
+        <on-entry>
+            <evaluate expression="cursoController.novoItem(curso)" result="viewScope.item" />
+        </on-entry>
+        <on-render>
+            <evaluate expression="curso.itens" result="viewScope.itens" result-type="dataModel" />
+        </on-render>
+        <transition on="adicionar">
+            <evaluate expression="curso.addItem(item.build())" />
+        </transition>
+        <transition on="remover">
+            <evaluate expression="curso.removeItem(itens.selectedRow)" />
+        </transition>
+        <transition on="salvar" to="ok">
+            <evaluate expression="cursoController.salvar(curso)" />
+        </transition>
+    </view-state>
+
+    <end-state id="ok" commit="true"></end-state>
+
+    <end-state id="cancelar" />
+
+    <global-transitions>
+        <transition on="cancelar" to="cancelar" />
+    </global-transitions>
+</flow>

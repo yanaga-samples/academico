@@ -2,33 +2,31 @@ package br.com.yanaga.samples.academico.domain;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
-import com.google.common.collect.ComparisonChain;
 
 import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class Nome implements Serializable, Comparable<Nome> {
-
-	public static final int TAMANHO_MAXIMO = 60;
+public class Sigla implements Serializable {
 
 	private final String value;
 
-	private Nome(String value) {
+	private Sigla(String value) {
 		this.value = value;
 	}
 
-	public static Nome of(String value) {
+	public static Sigla of(String value) {
 		checkNotNull(value);
 		checkArgument(!Strings.isNullOrEmpty(value));
-		return new Nome(value.toUpperCase());
+		checkArgument(value.matches("\\p{Alpha}{3}"));
+		return new Sigla(value.toUpperCase());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Nome) {
-			Nome other = (Nome) obj;
+		if (obj instanceof Sigla) {
+			Sigla other = (Sigla) obj;
 			return Objects.equal(this.value, other.value);
 		}
 		return false;
@@ -42,13 +40,6 @@ public class Nome implements Serializable, Comparable<Nome> {
 	@Override
 	public String toString() {
 		return value;
-	}
-
-	@Override
-	public int compareTo(Nome o) {
-		return ComparisonChain.start()
-				.compare(this.value, o.value)
-				.result();
 	}
 
 }
