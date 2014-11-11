@@ -7,7 +7,7 @@
             "type": "docker",
             "image": "produtec/java-tomcat:8u20-7.0.55",
             "commit": true,
-            "run_command": ["-d", "-i", "-t", "{{.Image}}", "/sbin/my_init", "--", "bash", "-l"]
+            "run_command": ["-d", "-i", "-t", "{{.Image}}", "/sbin/my_init", "--", "/srv/tomcat/bin/catalina.sh", "run"]
         }
     ],
     "provisioners": [
