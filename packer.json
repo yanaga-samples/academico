@@ -1,0 +1,29 @@
+{
+    "variables": {
+        "BUILD_NUMBER": null
+    },
+    "builders": [
+        {
+            "type": "docker",
+            "image": "produtec/java-tomcat:8u20-7.0.55",
+            "commit": true,
+            "run_command": ["-d", "-i", "-t", "{{.Image}}", "/sbin/my_init", "--", "bash", "-l"]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "target/academico.war",
+            "destination": "/srv/tomcat/webapps/ROOT.war"
+        }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "docker-tag",
+                "repository": "marcondesmacaneiro/unidavi_academico",
+                "tag": "{{user `BUILD_NUMBER`}}"
+            }
+        ]
+    ]
+}
