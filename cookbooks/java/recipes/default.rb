@@ -8,6 +8,7 @@ package 'oracle-java8-set-default'
 package 'maven'
 package 'git'
 package 'tomcat7'
+package 'postgresql'
 directory '/home/vagrant/.m2' do
   owner 'vagrant'
   group 'vagrant'

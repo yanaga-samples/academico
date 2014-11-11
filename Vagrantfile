@@ -10,10 +10,9 @@ Vagrant.configure("2") do |config|
 	end
 
 	config.vm.define "web" do |web|
-		web.vm.network :private_network, ip: "172.20.1.10"
 		web.vm.provision "chef_solo", run_list: ["java"]
 		web.vm.network "forwarded_port", guest: 8080, host: 8080
-		web.vm.synced_folder ".", "/vagrant", type: "nfs"
+		web.vm.network "forwarded_port", guest: 5432, host: 5432
 		web.vm.provider "virtualbox" do |v|
 			v.name = "web"
 			v.memory = 1536
