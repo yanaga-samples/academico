@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Optional;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -13,6 +14,8 @@ public class Pessoa implements Serializable {
 	private Long id;
 
 	private Nome nome;
+
+	private Ano ano;
 
 	protected Pessoa() {
 	}
@@ -33,4 +36,11 @@ public class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
+	public Optional<Ano> getAno() {
+		return Optional.ofNullable(ano);
+	}
+
+	public void setAno(Optional<Ano> ano) {
+		this.ano = ano.orElse(null);
+	}
 }
